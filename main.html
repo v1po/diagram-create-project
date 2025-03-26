@@ -14,13 +14,10 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx"></script>
     <script  src="scripts.js" ></script>
 </head>
-
 <body>
     <header>
         <img src="logo.png" alt="Логотип" id="logo">
     </header>
-
-    <!-- Страница ввода данных -->
     <section id="formPage" class="page active">
         <h2>Регистрация</h2>
         <div class="form-container">
@@ -36,7 +33,6 @@
             <button id="downloadReportBtn">Скачать отчет</button>
         </div>
     </section>
-
     <section id="reportInputPage" class="page hidden">
         <h2>Скачать отчет</h2>
         <div class="form-container">
@@ -49,10 +45,6 @@
         <div id="loading-spinner" style="display: none;">
         </div>
     </section>
-
-    
-
-    <!-- Страница выбора категории -->
     <section id="categoryPage" class="page hidden">
         <h2>Выберите категорию</h2>
         <select id="categorySelect">
@@ -67,7 +59,6 @@
         </select>
         <button onclick="goToQuestions()">Продолжить</button>
     </section>
-
     <section id="questionsPage" class="page hidden">
         <h2>Ответьте на вопросы</h2>
         <div id="questions" class="questions-container">
@@ -88,26 +79,21 @@
                     oninput="this.nextElementSibling.textContent = this.value">
                 <output>5</output><br>
             </div>
-
             <div class="questions-column" id="parentQuestions">
                 <h3>Родитель</h3>
                 <label for="parentQ1">Распределение ролей и ответственности (Родитель):</label>
                 <input type="range" id="parentQ1" name="parentQ1" min="1" max="10" step="1" value="5"
                     oninput="this.nextElementSibling.textContent = this.value">
                 <output>5</output><br>
-
                 <label for="parentQ2">Конструктивный вклад в команду (Родитель):</label>
                 <input type="range" id="parentQ2" name="parentQ2" min="1" max="10" step="1" value="5"
                     oninput="this.nextElementSibling.textContent = this.value">
                 <output>5</output><br>
-
                 <label for="parentQ3">Выполнение своей роли и задач (Родитель):</label>
                 <input type="range" id="parentQ3" name="parentQ3" min="1" max="10" step="1" value="5"
                     oninput="this.nextElementSibling.textContent = this.value">
                 <output>5</output><br>
-                <!-- Добавьте остальные вопросы аналогично -->
             </div>
-
             <div class="questions-column" id="teacherQuestions">
                 <h3>Педагог</h3>
                 <label for="teacherQ1">Распределение ролей и ответственности (Педагог):</label>
@@ -124,13 +110,10 @@
                 <input type="range" id="teacherQ3" name="teacherQ3" min="1" max="10" step="1" value="5"
                     oninput="this.nextElementSibling.textContent = this.value">
                 <output>5</output><br>
-                <!-- Добавьте остальные вопросы аналогично -->
             </div>
         </div>
         <button id="submitAnswers" onclick="buildAndShowChart()">Построить диаграмму</button>
     </section>
-
-    <!-- Страница диаграммы -->
     <section id="chartPage" class="page hidden">
         <h2>Диаграмма</h2>
         <div class="info-field">
