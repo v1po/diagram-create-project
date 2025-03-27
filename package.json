@@ -1,15 +1,15 @@
 {
-    "name": "pure-js-project",
-    "version": "1.0.0",
-    "description": "",
-    "type": "module",
-    "scripts": {
-      "start": "node index.js",
-      "dev": "nodemon index.js",
-      "build": "mkdir -p public && cp *.html *.css *.js public/",
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
-  }
+  "name": "pure-js-project",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "node script.js",
+    "dev": "nodemon script.js",
+    "build": "mkdir -p public && cp -r website/frontend/* public/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
