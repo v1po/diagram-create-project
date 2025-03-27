@@ -62,7 +62,7 @@ async function fetchUser(firstName, lastName) {
     }
 }
 async function fetchId(firstName, lastName) {
-    const url = `http://backend-create-diagram-production.up.railway.app/user/report?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}`;
+    const url = `https://backend-create-diagram-production.up.railway.app/user/report?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}`;
 
     try {
         const response = await fetch(url);
@@ -1232,7 +1232,7 @@ async function saveAndSubmitSurvey() {
     };
     console.log(surveyData)
     try {
-        const response = await fetch('http://backend-create-diagram-production.up.railway.app/survey/save', {
+        const response = await fetch('https://backend-create-diagram-production.up.railway.app/survey/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -1262,7 +1262,7 @@ async function registerUser(firstName, lastName) {
             console.error('First name and last name must be provided');
             throw new Error('First name and last name must be provided');
         }
-        const response = await fetch('http://backend-create-diagram-production.up.railway.app/user/register', {
+        const response = await fetch('https://backend-create-diagram-production.up.railway.app/user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
