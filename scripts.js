@@ -1,8 +1,4 @@
-const studentFirstNameInput = document.getElementById('studentFirstName');
-const studentLastNameInput = document.getElementById('studentLastName');
-const studentClassInput = document.getElementById('studentClass');
-const yearInput = document.getElementById('years');
-const categorySelect = document.getElementById('categorySelect');
+
 document.addEventListener('DOMContentLoaded', () => {
     const downloadReportBtn = document.getElementById('downloadReportBtn');
     if (downloadReportBtn) {
