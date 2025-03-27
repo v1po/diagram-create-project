@@ -6,10 +6,12 @@ const categorySelect = document.getElementById('categorySelect');
 document.addEventListener('DOMContentLoaded', () => {
     const downloadReportBtn = document.getElementById('downloadReportBtn');
     if (downloadReportBtn) {
+        console.log("Download Report Button Found");
         downloadReportBtn.addEventListener('click', showReportInput);
     } else {
         console.error("Download Report Button NOT Found");
     }
+
     const downloadReportSubmitBtn = document.getElementById('downloadReportSubmit');
     if (downloadReportSubmitBtn) {
         console.log("Download Report Submit Button Found");
@@ -21,9 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function showReportInput() {
     const formPage = document.getElementById('formPage');
     const reportInputPage = document.getElementById('reportInputPage');
+
     if (formPage && reportInputPage) {
         formPage.style.display = 'none';
         reportInputPage.style.display = 'block';
+        console.log("Switched to report input page");
     } else {
         console.error("One or both elements not found: formPage, reportInputPage");
     }
@@ -35,18 +39,22 @@ function backToForm() {
     if (formPage && reportInputPage) {
         reportInputPage.style.display = 'none';
         formPage.style.display = 'block';
+        console.log("Switched back to form page");
     } else {
         console.error("One or both elements not found: formPage, reportInputPage");
     }
 }
 async function fetchUser(firstName, lastName) {
-    const url = `http://localhost:3000/user/report?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}`;
+    const url = `https://backend-create-diagram-production.up.railway.app/user/report?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}`;
+
+
     try {
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Пользователь не найден');
         }
         const data = await response.json();
+        console.log(data.report.surveys[0].createdAt)
         return data;
     } catch (error) {
         console.error('Ошибка при поиске пользователя:', error);
@@ -54,14 +62,15 @@ async function fetchUser(firstName, lastName) {
     }
 }
 async function fetchId(firstName, lastName) {
-    const url = `http://localhost:3000/user/report?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}`;
+    const url = `http://backend-create-diagram-production.up.railway.app/user/report?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}`;
+
     try {
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Пользователь не найден');
         }
         const data = await response.json();
-    
+        console.log(data.report.surveys[0].createdAt)
         return data.report.id;
     } catch (error) {
         console.error('Ошибка при поиске пользователя:', error);
@@ -337,7 +346,7 @@ async function createXLSXFile() {
     Data3.forEach((row) => {
         sheet3.addRow(row);
     });
-
+    if (1 == 1) {
         sheet1.mergeCells(1, 1, 1, 2);
         sheet1.mergeCells(2, 1, 6, 1);
         sheet1.mergeCells(7, 1, 19, 1);
@@ -473,6 +482,7 @@ async function createXLSXFile() {
         sheet3.mergeCells(52, 6, 60, 6);
         sheet3.mergeCells(61, 6, 68, 6);
         sheet3.mergeCells(69, 6, 79, 6);
+    };
     const styledCells = [
         { sheet: sheet1, cell: "A1", bgColor: "d1d4d3" },
         { sheet: sheet1, cell: "A3", bgColor: "d1d4d3" },
@@ -877,6 +887,7 @@ async function generateRadarChart(labels, studentData, parentData, teacherData) 
         }
         return bytes.buffer;
     }
+
     return dataURLToArrayBuffer(imageDataUrl);
 }
 async function handleReportDownload() {
@@ -976,6 +987,10 @@ function goToQuestions() {
         console.error("Возраст вне диапазона 1-11 лет");
         return;
     }
+    console.log("Категория:", category);
+    console.log("Возраст:", years);
+    console.log("Список вопросов:", questions);
+
     studentQuestionsDiv.innerHTML = '';
     parentQuestionsDiv.innerHTML = '';
     teacherQuestionsDiv.innerHTML = '';
@@ -1043,6 +1058,7 @@ function buildAndShowChart() {
 let chartInstance;
 async function createRadarChart(categorySelect, studentData, parentData, teacherData) {
     const studentClass = Number(document.getElementById('studentClass').value);
+    console.log(typeof studentClass);
     if (1 <= studentClass.value <= 4) {
         questions = {
             0: ["Выполнение вычислений", "Решение задач", "Сформированность геометрических представлений", "Оперирование математическими терминами", "Применение математических знаний в реальной жизни"],
@@ -1054,6 +1070,7 @@ async function createRadarChart(categorySelect, studentData, parentData, teacher
             6: ["крупная моторика  Фундаментальные двигательные навыки(бег, прыжки, ползание и т.д.).", "мелкая моторика(движений кистями и пальцами рук и ног)", "Вестибулярная система", "Проприоцепция", "Спорт", "Здоровье", "Сон", "Пищевое поведение Правильное питание питание и полезные привычки."],
             7: ["Поиск и просмотр информации, поисковые запросы", "Цифровое право", "Работа с цифровыми устройствами и технологиями", "Цифровое представление данных и математические основы информации", "Использование приложений и сервисов", "Программирование, алгоритмизация и логика ИТ", "Работа с данными (поиск, хранение, обработка, вывод…)", "Разработка цифровых и медиа-продуктов", "Цифровая личность", "Цифровой этикет", "Коммуникации с использованием цифровых устройств"],
         };
+        console.log(0)
     }
     else if (5 <= studentClass.value <= 9) {
         questions = {
@@ -1066,6 +1083,7 @@ async function createRadarChart(categorySelect, studentData, parentData, teacher
             6: ["крупная моторика  Фундаментальные двигательные навыки(бег, прыжки, ползание и т.д.).", "мелкая моторика(движений кистями и пальцами рук и ног)", "Вестибулярная система", "Проприоцепция", "Спорт", "Здоровье", "Сон", "Пищевое поведение Правильное питание питание и полезные привычки."],
             7: ["Поиск и просмотр информации, поисковые запросы", "Цифровое право", "Работа с цифровыми устройствами и технологиями", "Цифровое представление данных и математические основы информации", "Использование приложений и сервисов", "Программирование, алгоритмизация и логика ИТ", "Работа с данными (поиск, хранение, обработка, вывод…)", "Разработка цифровых и медиа-продуктов", "Цифровая личность", "Цифровой этикет", "Коммуникации с использованием цифровых устройств"],
         };
+        console.log(1)
     }
     else if (10<= studentClass.value <= 11 ) {
         questions = {
@@ -1078,11 +1096,13 @@ async function createRadarChart(categorySelect, studentData, parentData, teacher
             6: ["крупная моторика  Фундаментальные двигательные навыки(бег, прыжки, ползание и т.д.).", "мелкая моторика(движений кистями и пальцами рук и ног)", "Вестибулярная система", "Проприоцепция", "Спорт", "Здоровье", "Сон", "Пищевое поведение Правильное питание питание и полезные привычки."],
             7: ["Поиск и просмотр информации, поисковые запросы", "Оценка качества цифровой информации", "Цифровое право", "Работа с цифровыми устройствами и технологиями", "Цифровое представление данных и математические основы информации", "Использование приложений и сервисов", "Программирование, алгоритмизация и логика ИТ", "Работа с данными (поиск, хранение, обработка, вывод…)", "Разработка цифровых и медиа-продуктов", "Цифровая личность", "Цифровой этикет", "Коммуникации с использованием цифровых устройств"],
         };
+        console.log(2)
     };
     if (chartInstance) {
         chartInstance.destroy();
     }
     const labels = questions[categorySelect]
+    console.log(labels)
     const ctx = document.getElementById('chart').getContext('2d');
     chartInstance = new Chart(ctx, {
         type: 'radar',
@@ -1210,8 +1230,9 @@ async function saveAndSubmitSurvey() {
         teacherData: teacherData,
         chartId: chartId
     };
+    console.log(surveyData)
     try {
-        const response = await fetch('http://localhost:3000/survey/save', {
+        const response = await fetch('http://backend-create-diagram-production.up.railway.app/survey/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -1220,6 +1241,11 @@ async function saveAndSubmitSurvey() {
         });
 
         const data = await response.json();
+        if (data.message === 'Опрос успешно сохранен') {
+            console.log('Success:', data);
+        } else {
+            throw new Error('Ошибка при сохранении опроса');
+        }
     } catch (error) {
         console.error('Error:', error);
         alert('Ошибка при сохранении опроса.');
@@ -1236,7 +1262,7 @@ async function registerUser(firstName, lastName) {
             console.error('First name and last name must be provided');
             throw new Error('First name and last name must be provided');
         }
-        const response = await fetch('http://localhost:3000/user/register', {
+        const response = await fetch('http://backend-create-diagram-production.up.railway.app/user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
