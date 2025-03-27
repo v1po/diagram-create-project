@@ -4,8 +4,8 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "node script.js",
-    "dev": "nodemon script.js",
+    "start": "node scripts.js", 
+    "dev": "nodemon scripts.js", 
     "build": "mkdir -p public && cp main.html styles.css scripts.js public/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
