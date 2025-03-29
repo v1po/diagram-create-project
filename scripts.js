@@ -1258,7 +1258,7 @@ async function registerUser(firstName, lastName) {
             console.error('First name and last name must be provided');
             throw new Error('First name and last name must be provided');
         }
-        const response = await fetch('https://backend-create-diagram-production.up.railway.app/user/register', {
+        const response = await fetch('http://backend-create-diagram-production.up.railway.app/user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
