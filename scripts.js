@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('loading-spinner').style.display = 'block';
         setTimeout(function () {
             document.getElementById('loading-spinner').style.display = 'none';
-            alert('Данные успешно сохранены!');
         }, 3000);
     });
 });
@@ -774,7 +773,6 @@ async function createXLSXFile() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    alert("Файл успешно создан!")
 }
 async function generateRadarChart(labels, studentData, parentData, teacherData) {
     document.getElementById('loading-spinner').style.display = 'block';
@@ -886,7 +884,6 @@ async function handleReportDownload() {
                 const reportData = await fetchUser(firstName, lastName);
                 if (reportData) {
                     createXLSXFile();
-                    alert('Файл загружается!');
                 } else {
                     console.error('Данные отчета не найдены');
                 }
