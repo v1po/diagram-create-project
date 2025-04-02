@@ -16,6 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Download Report Submit Button NOT Found");
     }
 });
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('save-button').addEventListener('click', function () {
+        document.getElementById('loading-spinner').style.display = 'block';
+        setTimeout(function () {
+            document.getElementById('loading-spinner').style.display = 'none';
+            alert('Данные успешно сохранены!');
+        }, 3000);
+    });
+});
+
 function showReportInput() {
     const formPage = document.getElementById('formPage');
     const reportInputPage = document.getElementById('reportInputPage');
@@ -767,6 +777,7 @@ async function createXLSXFile() {
     alert("Файл успешно создан!")
 }
 async function generateRadarChart(labels, studentData, parentData, teacherData) {
+    document.getElementById('loading-spinner').style.display = 'block';
     const canvas = document.createElement('canvas');
     canvas.width = 800;
     canvas.height = 800;
@@ -802,29 +813,6 @@ async function generateRadarChart(labels, studentData, parentData, teacherData) 
             },
             responsive: false,
             scales: {
-                x: {
-                    type: 'linear',
-                    min: 0,
-                    max: 10,
-                    ticks: {
-                        display: false,
-                    },
-                    grid: {
-                        display: false,
-                    },
-
-                },
-                y: {
-                    type: 'linear',
-                    min: 0,
-                    max: 10,
-                    ticks: {
-                        display: false,
-                    },
-                    grid: {
-                        display: false,
-                    },
-                },
                 r: {
                     ticks: {
                         beginAtZero: true,
@@ -853,36 +841,39 @@ async function generateRadarChart(labels, studentData, parentData, teacherData) 
         },
     };
 
-
-    await new Promise((resolve) => {
-        const chart = new Chart(ctx, {
-            ...configuration,
-            options: {
-                ...configuration.options,
-                animation: {
-                    duration: 1,
-                    onComplete: () => {
-                        chart.options.animation.duration = 0;
-                        chart.stop(); 
-                        resolve();
+    try {
+        await new Promise((resolve) => {
+            const chart = new Chart(ctx, {
+                ...configuration,
+                options: {
+                    ...configuration.options,
+                    animation: {
+                        onComplete: () => {
+                            chart.options.animation.duration = 0;
+                            chart.stop();
+                            resolve();
+                        },
                     },
                 },
-            },
+            });
         });
-    });
-    const imageDataUrl = canvas.toDataURL('image/png');
-    function dataURLToArrayBuffer(dataURL) {
-        const base64 = dataURL.split(',')[1];
-        const binaryString = atob(base64);
-        const length = binaryString.length;
-        const bytes = new Uint8Array(length);
-        for (let i = 0; i < length; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-        }
-        return bytes.buffer;
-    }
 
-    return dataURLToArrayBuffer(imageDataUrl);
+        const imageDataUrl = canvas.toDataURL('image/png');
+
+        function dataURLToArrayBuffer(dataURL) {
+            const base64 = dataURL.split(',')[1];
+            const binaryString = atob(base64);
+            const length = binaryString.length;
+            const bytes = new Uint8Array(length);
+            for (let i = 0; i < length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+        return dataURLToArrayBuffer(imageDataUrl);
+    } finally {
+        document.getElementById('loading-spinner').style.display = 'none';
+    }
 }
 async function handleReportDownload() {
     const firstName = document.getElementById('reportFirstName').value;
