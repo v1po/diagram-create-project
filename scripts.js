@@ -898,22 +898,22 @@ async function handleReportDownload() {
     }
 }
 function goToCategory() {
-    formPage.classList.remove('active');
-    document.getElementById('chartPage').classList.remove('active');
     const requiredFields = document.querySelectorAll('#formPage input[required]');
     let allFilled = true;
     requiredFields.forEach(field => {
         if (!field.value) {
             allFilled = false;
-
         }
-    }); if (!allFilled) {
+    });
+    if (!allFilled) {
         alert('Пожалуйста, заполните все поля.');
-        return;
+        return; 
     }
+    formPage.classList.remove('active');
+    document.getElementById('chartPage').classList.remove('active');
     document.getElementById('categoryPage').classList.add('active');
 }
-function goToQuestions() {
+function Questions() {
     document.getElementById('categoryPage').classList.remove('active');
     const categorySelect = document.getElementById('categorySelect');
     const yearsInput = document.getElementById('studentClass');
