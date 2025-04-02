@@ -913,7 +913,7 @@ function goToCategory() {
     document.getElementById('chartPage').classList.remove('active');
     document.getElementById('categoryPage').classList.add('active');
 }
-function Questions() {
+function goToQuestions() {
     document.getElementById('categoryPage').classList.remove('active');
     const categorySelect = document.getElementById('categorySelect');
     const yearsInput = document.getElementById('studentClass');
